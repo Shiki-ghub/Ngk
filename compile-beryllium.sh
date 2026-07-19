@@ -36,7 +36,7 @@ mkdir -p out/outputs/${PHONE}/10.3.7-NSE
 
 # Export shits
 export KBUILD_BUILD_USER=Pierre2324
-export KBUILD_BUILD_HOST=G7-7588
+export KBUILD_BUILD_HOST=bokir
 
 # Speed up build process
 MAKE="./makeparallel"
