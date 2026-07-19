@@ -5,7 +5,7 @@
 PHONE="beryllium"
 ARCH="arm64"
 SUBARCH="arm64"
-DEFCONFIG=nogravity_defconfig
+DEFCONFIG=nogravityksu_defconfig
 COMPILERDIR="${COMPILERDIR:-$(pwd)/clang}"
 ANYKERNEL_DIR="${ANYKERNEL_DIR:-$(pwd)/AnyKernel3}"
 LINKER=""
