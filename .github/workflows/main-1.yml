@@ -9,7 +9,9 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:22.04
     steps:
       - name: Checkout kernel source
         uses: actions/checkout@v4
