@@ -6,7 +6,7 @@
 PHONE="beryllium"
 ARCH="arm64"
 SUBARCH="arm64"
-DEFCONFIG=nogravity_defconfig
+DEFCONFIG=nogravity_defconfigksu
 #DEFCONFIG=beryllium_defconfig
 COMPILER=clang
 LINKER=""
