@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout kernel source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 1
 
@@ -25,7 +25,7 @@ jobs:
 
       - name: Cache Proton-Clang toolchain
         id: cache-clang
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: clang
           key: proton-clang-toolchain
@@ -42,7 +42,7 @@ jobs:
 
       - name: Upload build artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: kernel-build-${{ github.run_number }}
           path: out/outputs/**/*.zip
