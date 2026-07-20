@@ -25,7 +25,7 @@ if [ ! -d "${ANYKERNEL_DIR}" ]; then
     echo "AnyKernel3 not found, cloning..."
     # This fork is already pre-configured for beryllium/dipper
     # (device.name1/2, block=.../by-name/boot, kernel.string, etc.)
-    git clone --depth=1 https://github.com/PainKiller3/AnyKernel3.git "${ANYKERNEL_DIR}"
+    git clone --depth=1 https://github.com/Shiki-ghub/AnyKernel3.git "${ANYKERNEL_DIR}"
 fi
 
 # Outputs
