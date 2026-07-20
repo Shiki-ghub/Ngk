@@ -35,7 +35,7 @@ jobs:
         run: git clone --depth=1 https://github.com/kdrag0n/proton-clang.git clang
 
       - name: Clone AnyKernel3
-        run: git clone --depth=1 https://github.com/PainKiller3/AnyKernel3.git AnyKernel3
+        run: git clone --depth=1 https://github.com/Shiki-ghub/AnyKernel3.git AnyKernel3
 
       - name: Integrate ReSukiSU
         run: curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
