@@ -104,11 +104,11 @@ else
 fi
 
 # Build starts here
+#Start with 9.1.24-SE
+cp firmware/touch_fw_variant/9.1.24/* firmware/
+cp arch/arm64/boot/dts/qcom/SE_NSE/SE/* arch/arm64/boot/dts/qcom/
 if [ -z ${LINKER} ]
 then
-    #Start with 9.1.24-SE
-    cp firmware/touch_fw_variant/9.1.24/* firmware/
-    cp arch/arm64/boot/dts/qcom/SE_NSE/SE/* arch/arm64/boot/dts/qcom/
     Build
 else
     Build_lld
