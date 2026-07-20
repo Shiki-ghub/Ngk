@@ -6,6 +6,7 @@ on:
 env:
   BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
   CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+  KBUILD_BUILD_VERSION: 1
 
 jobs:
   build:
