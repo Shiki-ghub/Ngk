@@ -38,8 +38,8 @@ jobs:
       - name: Clone AnyKernel3
         run: git clone --depth=1 https://github.com/Shiki-ghub/AnyKernel3.git AnyKernel3
 
-      - name: Integrate ReSukiSU
-        run: curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
+      - name: Integrate kernelSU
+        run: curl -LSs "https://raw.githubusercontent.com/backslashxx/KernelSU/master/kernel/setup.sh" | bash -s master
 
       - name: Build kernel
         run: bash compile.sh
