@@ -1,0 +1,88 @@
+name: Build Kernel - Poco F1 (Beryllium)
+
+on:
+  workflow_dispatch:
+    inputs:
+      kernel_repo:
+        description: 'Kernel source repo URL'
+        required: true
+        default: 'https://github.com/xiaomi-sdm845/android_kernel_xiaomi_sdm845'
+      kernel_branch:
+        description: 'Kernel branch'
+        required: true
+        default: 'kernel.lnx.4.9.r11-rel'
+      defconfig:
+        description: 'Defconfig file'
+        required: true
+        default: 'beryllium_defconfig'
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 120
+
+    steps:
+      - name: Setup workspace
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/{kernel,toolchains,anykernel}
+          echo "WORKSPACE=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            bc bison build-essential ccache curl flex \
+            g++-multilib gcc-multilib git gnupg gperf \
+            imagemagick lib32ncurses5-dev lib32readline-dev \
+            lib32z1-dev liblz4-tool libncurses5-dev \
+            libsdl1.2-dev libssl-dev libxml2 libxml2-utils \
+            lzop pngcrush rsync schedtool squashfs-tools \
+            xsltproc zip zlib1g-dev libncurses5 \
+            python2 python3 python-is-python3
+
+      - name: Clone kernel source
+        run: |
+          git clone --depth=1 -b ${{ github.event.inputs.kernel_branch }} \
+            ${{ github.event.inputs.kernel_repo }} \
+            $GITHUB_WORKSPACE/kernel
+
+      - name: Clone Proton Clang
+        run: |
+          git clone --depth=1 https://github.com/kdrag0n/proton-clang.git \
+            $GITHUB_WORKSPACE/toolchains/proton-clang
+
+      - name: Clone AnyKernel3
+        run: |
+          git clone --depth=1 https://github.com/Shiki-ghub/AnyKernel3.git \
+            $GITHUB_WORKSPACE/anykernel
+
+      - name: Run build script
+        run: |
+          chmod +x build.sh
+          ./build.sh \
+            "${{ github.event.inputs.defconfig }}" \
+            "$GITHUB_WORKSPACE/kernel" \
+            "$GITHUB_WORKSPACE/toolchains/proton-clang" \
+            "$GITHUB_WORKSPACE/anykernel"
+        env:
+          DEVICE: beryllium
+          KBUILD_BUILD_USER: github-actions
+          KBUILD_BUILD_HOST: github-build
+
+      - name: Upload kernel artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ProtonKernel-beryllium-${{ github.run_number }}
+          path: |
+            out/*.zip
+            out/arch/arm64/boot/Image*
+            out/arch/arm64/boot/dtbo.img
+          if-no-files-found: warn
+
+      - name: Upload build log (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log-${{ github.run_number }}
+          path: out/build.log
+          
